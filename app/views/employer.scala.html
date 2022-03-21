@@ -1,0 +1,63 @@
+@(userdata: List[Employer])
+
+@main("User Profile") {
+
+    <div style="margin-top: 40px;width: 100%">
+        @for(e <- userdata) {
+            <h1>Name: @e.getPublic_name</h1>
+            <h4>id :@e.getId()</h4>
+            <h4>username: @e.getUsername()</h4>
+            <h4>closed :@e.getClosed</h4>
+            <h4>profile_description :@e.getProfile_description</h4>
+            <h4>hourly_rate :@e.getHourly_rate</h4>
+            <h4>registration_date :@e.getRegistration_date</h4>
+            <h4>limited_account :@e.getLimited_account</h4>
+            <h4>display_name :@e.getDisplay_name</h4>
+            <h4>tagline :@e.getTagline</h4>
+            <h4>country :@e.getCountry</h4>
+            <h4>role :@e.getRole</h4>
+            <h4>currency :@e.getCurrency</h4>
+            <h4>language :@e.getLanguage</h4>
+            <h4>portfolio_count :@e.getPortfolio_count</h4>
+            <h3>Status</h3>
+            <h4>payment_verified :@e.getEs().isPayment_verified</h4>
+            <h4>email_verified :@e.getEs().isEmail_verified</h4>
+            <h4>deposit_made :@e.getEs().isDeposit_made</h4>
+            <h4>profile_complete :@e.getEs().isProfile_complete</h4>
+            <h4>phone_verified :@e.getEs().isPhone_verified</h4>
+            <h4>identity_verified :@e.getEs().isIdentity_verified</h4>
+            <h4>facebook_connected :@e.getEs().isFacebook_connected</h4>
+            <h4>freelancer_verified_user :@e.getEs().isFreelancer_verified_user</h4>
+            <h4>linkedin_connected :@e.getEs().isLinkedin_connected</h4>
+
+
+            <table style="border: 1px solid black;">
+                <thead>
+                    <tr>
+                        <th>Project</th>
+                        <th>Owner</th>
+                        <th>title</th>
+                        <th>Skills</th>
+                        <th>FRI</th>
+                        <th>FKGL</th>
+                        <th>Education Level</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @for(w <- e.getPro()){
+                    <tr>
+                        <td><a href="/user/${@w.getId()}">@w.getId()</a></td>
+                        <td><a href="/user/@w.getOwner_id()" target="_blank">@w.getOwner_id()</a></td>
+                        <td>@w.getTitle() </td>
+                        <td>@w.getSkills()</td>
+                        <td>@w.getFleschReadIndex()</td>
+                        <td>@w.getFleschKincaid</td>
+                        <td>@w.getEduLevel</td>
+@*                        <td>@w.getIndividual_sorted</td>*@
+                    </tr>
+                }
+                </tbody>
+            </table>
+        }
+    </div>
+}

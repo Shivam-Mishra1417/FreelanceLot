@@ -1,0 +1,26 @@
+@(stats_detail: Stats)
+
+@main("User Profile") {
+
+    <div style="margin-top: 40px;width: 100%">
+        <h1>@stats_detail.getProject_title</h1>
+        <h6>id :@stats_detail.getProject_id</h6>
+        <h3>@stats_detail.getProject_description</h3>
+        <table style="border: 1px solid black;">
+            <thead>
+                <tr>
+                    <th>Word</th>
+                    <th>Frequency</th>
+                </tr>
+            </thead>
+            <tbody>
+            @for((k,v) <-stats_detail.getIndividual_sorted){
+                <tr>
+                    <td>@k</td>
+                    <td>@v</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+}

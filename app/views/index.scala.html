@@ -1,0 +1,66 @@
+@(Result: List[ProjectList])
+
+@main("Projects") {
+
+
+  <div style="width: 100%">
+    <div class="header">
+    <h1 class="header-title">FreeLanceLot</h1>
+      <h2>&copy;Team 1417</h2>
+
+    <div class="container">
+    <form action="/" method="get" >
+      <input type="text" placeholder="input" name="keywords">
+      <button type="submit">search</button>
+     </form>
+      </div>
+      <p><a href="/globalstat/">Global stats</a></p>
+    </div>
+    @for(projectList <- Result){
+
+
+      <div class="bar" style="width: 100%">
+      <table style="border: 1px solid black;" id="myTable">
+        <br><br>
+        <tbody>
+          <tr><td id="Search">@projectList.getSearchedKeyword()</td>
+            <td>Avg Flecsh readability index : @projectList.getAvgFleshIndex()</td>
+            <td>Avg FKGL : @projectList.getAvgFKGL()</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    <table style="border: 1px solid black;">
+      <thead>
+        <tr>
+          <th>Owner</th>
+          <th>date Submitted</th>
+          <th>title</th>
+          <th>type</th>
+          <th>Skills</th>
+          <th>FRI</th>
+          <th>FKGL</th>
+          <th>Education Level</th>
+          <th>global stats</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(w <- projectList.getFirstTenProjectsList()){
+        <tr>
+
+          <td><a href="/user/@w.getOwner_id()" target="_blank">@w.getOwner_id()</a></td>
+          <td>@w.getDate</td>
+          <td>@w.getTitle() </td>
+          <td>@w.getType</td>
+          <td>@for(skill<-w.getSkills()){<br><a href=@RouteController.EncodeURL(skill) target="_blank"> @skill </a></br>}</td>
+          <td>@w.getFleschReadIndex()</td>
+          <td>@w.getFleschKincaid</td>
+          <td>@w.getEduLevel</td>
+          <td><a href="/individualStat/@w.getId(),@w.getTitle(),@w.getDesc()"> get wordstat here </a></td>
+        </tr>
+      }
+        }
+      </tbody>
+    </table>
+  </div>
+}
