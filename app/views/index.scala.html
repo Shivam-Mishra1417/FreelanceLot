@@ -1,0 +1,65 @@
+@(url: String)
+  @main("Welcome Play") {
+    <div style="width: 100%">
+      <div class="header">
+        <h1 class="header-title">FreeLanceIot</h1>
+        <h2>&copy;Team 1417</h2>
+
+        @*                <div class="container">*@
+        @*                <button id="btn"*@
+        @*                type="button">Word Statistics*@
+        @*                </button>*@
+        @*                </div>*@
+
+        <div id="search-bar">
+          <input class="key" id="messageInput" name="key" placeholder="Type to search" type="text" autofocus>
+          <button id="sendButton" style="border-radius: 8px" type="button">Search</button>
+          <button id="btn"
+          type="button">Word Statistics
+          </button>
+        </div>
+      </div>
+      <div id="table-1" style="margin-top: 40px;
+        width: 100%">
+        <table>
+          <thead>
+
+          </thead>
+          <tbody id="records_table"></tbody>
+        </table>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+            function init() {
+              initWebSocket();
+            }
+
+            function initWebSocket() {
+              @*webSocket = new WebSocket("@url");*@
+              webSocket = new WebSocket("ws://localhost:9000/chat");
+              //alert(webSocket.readyState);
+              webSocket.onopen = onOpen;
+              webSocket.onclose = onClose;
+              webSocket.onmessage = onMessage;
+              webSocket.onerror = onError;
+            }
+
+            function onOpen(evt) {
+              console.log("CONNECTED");
+              console.log("@url");
+
+
+            }
+
+            function onClose(evt) {
+              console.log("DISCONNECTED");
+              appendMessageToView(":", "DISCONNECTED");
+            }
+
+            function onError(evt) {
+              console.log("ERROR: " + evt.data);
+              console.log("ERROR: " + JSON.stringify(evt));
+            }
+    </script>
+  }

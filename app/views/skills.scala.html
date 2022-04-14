@@ -1,0 +1,27 @@
+@(project: List[projects])
+@main("Skills") {
+
+    <div style="margin-top: 40px;width: 100%">
+        <h1>Skills</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>PROJECT ID</th>
+                    <th>TITLE</th>
+                    <th>DESCRIPTION</th>
+                    <th>SKILLS</th>
+                </tr>
+            </thead>
+            <tbody>
+            @for(w <- project){
+                <tr>
+                    <td>@w.getId()</td>
+                    <td>@w.getTitle()</td>
+                    <td>@w.getDesc()</td>
+                    <td>@for(skill<-w.getSkills()){<ul><a href="/skill/@skill">@skill</a></ul>}</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+}
